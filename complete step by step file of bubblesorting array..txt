@@ -1,0 +1,115 @@
+
+Algorithm: Bubble Sort
+Step 1: Start
+Step 2: Initialize an array data[] = {1, 9, 2, 5}
+Step 3: Calculate the number of elements in the array
+  n = sizeof(data) / sizeof(data[0])
+Step 4: Display the original array elements using the function printArray(data, n)
+Step 5: Call the function bubbleSort(data, n) to sort the array in ascending order
+ 
+Inside the bubbleSort() function
+Step 6: Repeat the following for i = 0 to n - 2:
+ a. Repeat the following for j = 0 to n - 2 - i:
+   i. Compare adjacent elements arr[j] and arr[j + 1]
+   ii. If arr[j] > arr[j + 1], then swap them using a temporary variable temp
+Step 7: Continue the process until no more swaps are needed and all elements are sorted in ascending order
+ 
+Back to main()
+Step 8: Display the sorted array using printArray(data, n)
+Step 9: End
+ 
+Example Execution
+Initial Array: 1, 9, 2, 5
+Pass 1: Compare and swap → 1, 2, 5, 9
+Pass 2: No swaps needed → array is sorted
+Final Sorted Array: 1, 2, 5, 9
+code:
+ #include <stdio.h>
+
+/**
+ * @brief Performs Bubble Sort on an integer array in ascending order.
+ * * Bubble Sort repeatedly steps through the list, compares adjacent elements,
+ * and swaps them if they are in the wrong order. The largest element "bubbles up"
+ * to its correct position at the end of each pass.
+ *
+ * @param arr The array of integers to be sorted.
+ * @param n The number of elements in the array.
+ */
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    // Outer loop for the number of passes
+    for (i = 0; i < n - 1; i++) {
+        // Inner loop for comparison and swapping in the current pass
+        // The last i elements are already in place (sorted), so we only check up to n-1-i
+        for (j = 0; j < n - 1 - i; j++) {
+            // Compare adjacent elements
+            if (arr[j] > arr[j + 1]) {
+                // Swap arr[j] and arr[j+1] if they are in the wrong order
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/**
+ * @brief Utility function to print the elements of an array.
+ * * @param arr The array of integers to be printed.
+ * @param n The number of elements in the array.
+ */
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d", arr[i]);
+        if (i < n - 1) {
+            printf(", ");
+        }
+    }
+    printf("\n");
+}
+
+/**
+ * @brief Main function to initialize the array and demonstrate sorting.
+ */
+int main() {
+    // 1. Initialize the array with the given elements: 1, 9, 2, 5
+    int data[] = {1, 9, 2, 5};
+    // 2. Calculate the number of elements in the array
+    int n = sizeof(data) / sizeof(data[0]);
+
+    printf("Original array elements: ");
+    printArray(data, n); // Output: 1, 9, 2, 5
+
+    // 3. Call the sorting function
+    bubbleSort(data, n);
+
+    // 4. Print the sorted array
+    printf("Array elements in ascending order: ");
+    printArray(data, n); // Output: 1, 2, 5, 9
+
+    return 0;
+}
+dry run table:
+🧮 Dry Run Table for Bubble Sort
+Pass (i)
+| **Pass (i)** | **Inner Loop (j)** | **Elements Compared** | **Swap Performed?** | **Array After Comparison** |
+| :----------: | :----------------: | :-------------------- | :------------------ | :------------------------- |
+|   **Start**  |          –         | –                     | –                   | **1, 9, 2, 5**             |
+🔹 Pass 1 (i = 0) → j goes from 0 to 2 (n-2-i = 3-0)
+| j | Compare | Swap? | Array State |
+| - | ------- | ----- | ----------- |
+| 0 | 1 & 9   | No    | 1, 9, 2, 5  |
+| 1 | 9 & 2   | Yes   | 1, 2, 9, 5  |
+| 2 | 9 & 5   | Yes   | 1, 2, 5, 9  |
+
+| j | Compare | Swap? | Array State |
+| - | ------- | ----- | ----------- |
+| 0 | 1 & 2   | No    | 1, 2, 5, 9  |
+| 1 | 2 & 5   | No    | 1, 2, 5, 9  |
+
+| j | Compare | Swap? | Array State |
+| - | ------- | ----- | ----------- |
+| 0 | 1 & 2   | No    | 1, 2, 5, 9  |
+✅ Final Output:
+Array in ascending order: 1, 2, 5, 9
